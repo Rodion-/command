@@ -168,6 +168,7 @@ class VelocityAdapter : public ICommand
 
     //----mock part
     velocity vel;
+    velocity ob_vel;
     //----
 
     public:
@@ -184,13 +185,23 @@ class VelocityAdapter : public ICommand
 
         ob->get_property("is_movable");
 
-        ob->get_property("velocity");
-        velocity ob_vel;
+        ob->get_property("velocity");        
 
         ob_vel.x += vel.x;
         ob_vel.y += vel.y;
 
         ob->set_property("velocity");
+    }
+
+    void set_velocity_for_test( velocity v )
+    {
+        ob_vel = v;
+    }
+
+    void get_velocity_for_test( velocity* v )
+    {
+        v->x = ob_vel.x;
+        v->y = ob_vel.y;
     }
 };
 

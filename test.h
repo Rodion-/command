@@ -4,8 +4,6 @@
 
 TEST( test1 , test )
 {
-    using namespace std;
-
     std::shared_ptr<UObject> spaceship;
     CheckFuelAdapter CheckFuelCommand( spaceship );
 
@@ -20,8 +18,6 @@ TEST( test1 , test )
 
 TEST( test2 , test )
 {
-    using namespace std;
-
     std::shared_ptr<UObject> spaceship;
     BurnFuelAdapter BurnFuelCommand( spaceship , 100 );
 
@@ -32,6 +28,21 @@ TEST( test2 , test )
 }
 
 TEST( test3 , test )
+{
+    std::shared_ptr<UObject> spaceship;
+    velocity vel = { 1 , 2 };
+    VelocityAdapter ChangeVelocityCommand( spaceship , vel );
+
+    ChangeVelocityCommand.set_velocity_for_test( velocity{ 3 , 4 } );
+    ChangeVelocityCommand.execute();
+
+    ChangeVelocityCommand.get_velocity_for_test( &vel );
+
+    EXPECT_EQ ( vel.x , 4 );
+    EXPECT_EQ ( vel.y , 6 );
+}
+
+TEST( test4 , test )
 {
     std::shared_ptr<UObject> spaceship;
     ExceptionHandler exceptionhandler;
